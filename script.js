@@ -1,15 +1,11 @@
 const url = 'book.pdf';
 const container = document.getElementById('flipbook');
-
-// Проверка: мобильное устройство?
 const isMobile = window.innerWidth <= 900;
 
-// Подгрузка PDF
 pdfjsLib.getDocument(url).promise.then(pdf => {
     const numPages = pdf.numPages;
     const pages = [];
 
-    // Загрузка одной страницы
     const loadPage = pageNum => {
         return pdf.getPage(pageNum).then(page => {
             const viewport = page.getViewport({ scale: 2 });
@@ -31,7 +27,6 @@ pdfjsLib.getDocument(url).promise.then(pdf => {
         });
     };
 
-    // Загрузка всех страниц
     const loadAll = [];
     for (let i = 1; i <= numPages; i++) {
         loadAll.push(loadPage(i));
@@ -40,27 +35,32 @@ pdfjsLib.getDocument(url).promise.then(pdf => {
     Promise.all(loadAll).then(() => {
         pages.forEach(wrapper => container.appendChild(wrapper));
 
-        // Инициализация turn.js
+        // Расчёт адаптивного размера
+        const pageWidth = 843;
+        const pageHeight = 600;
+        const maxBookWidth = window.innerWidth * 0.95;
+        const scale = isMobile ? 1 : Math.min(maxBookWidth / (pageWidth * 2), 1);
+
+        const bookWidth = isMobile ? pageWidth * scale : pageWidth * 2 * scale;
+        const bookHeight = pageHeight * scale;
+
         $('#flipbook').turn({
-            width: isMobile ? window.innerWidth * 0.9 : 1686,
-            height: isMobile ? 600 : 600,
+            width: bookWidth,
+            height: bookHeight,
             autoCenter: true,
             display: isMobile ? 'single' : 'double',
             elevation: 50,
             gradients: true
         });
 
-        // Включаем свайп на мобильных
         if (isMobile) {
             enableTouchSwipe(document.getElementById('flipbook'));
         }
     });
 });
 
-// Функция свайпа
 function enableTouchSwipe(flipbook) {
     let startX = 0;
-
     flipbook.addEventListener('touchstart', (e) => {
         startX = e.touches[0].clientX;
     });
