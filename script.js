@@ -1,13 +1,15 @@
 const url = 'book.pdf';
 const container = document.getElementById('flipbook');
 
+// Проверим, мобильное ли устройство
+const isMobile = window.innerWidth <= 900;
+
 pdfjsLib.getDocument(url).promise.then(pdf => {
     const numPages = pdf.numPages;
     const pages = [];
 
     const loadPage = pageNum => {
         return pdf.getPage(pageNum).then(page => {
-            // Масштаб высокий для качества
             const viewport = page.getViewport({ scale: 2 });
 
             const canvas = document.createElement('canvas');
@@ -37,14 +39,12 @@ pdfjsLib.getDocument(url).promise.then(pdf => {
         pages.forEach(wrapper => container.appendChild(wrapper));
 
         $('#flipbook').turn({
-            width: 1686,
-            height: 600,
+            width: isMobile ? window.innerWidth * 0.9 : 1686,
+            height: isMobile ? 600 : 600,
             autoCenter: true,
-            display: 'double',
+            display: isMobile ? 'single' : 'double',
             elevation: 50,
             gradients: true
         });
-
-
     });
 });
