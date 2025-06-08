@@ -38,10 +38,20 @@ pdfjsLib.getDocument(url).promise.then(pdf => {
         // Расчёт адаптивного размера
         const pageWidth = 843;
         const pageHeight = 600;
-        const maxBookWidth = window.innerWidth * 0.95;
-        const scale = isMobile ? 1 : Math.min(maxBookWidth / (pageWidth * 2), 1);
 
-        const bookWidth = isMobile ? pageWidth * scale : pageWidth * 2 * scale;
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+
+        const maxBookWidth = screenWidth * 0.95;
+        const maxBookHeight = screenHeight * 0.9;
+
+        const scale = Math.min(
+            maxBookWidth / (pageWidth * (isMobile ? 1 : 2)),
+            maxBookHeight / pageHeight,
+            1
+        );
+
+        const bookWidth = pageWidth * (isMobile ? 1 : 2) * scale;
         const bookHeight = pageHeight * scale;
 
         $('#flipbook').turn({

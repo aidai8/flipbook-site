@@ -1,19 +1,19 @@
-body {
+html, body {
     margin: 0;
     padding: 0;
+    height: 100%;
     background: #000 url("images/bg.jpg") no-repeat center center fixed;
     background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    overflow: hidden;
+    font-family: sans-serif;
 }
 
 #flipbook-container {
-    background: transparent;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
 }
 
 #flipbook {
@@ -34,8 +34,7 @@ body {
 .page-wrapper canvas {
     width: 100% !important;
     height: 100% !important;
-    display: block;
     object-fit: contain;
+    display: block;
     background: transparent;
-    border: none;
 }
