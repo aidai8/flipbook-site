@@ -45,11 +45,13 @@ pdfjsLib.getDocument(url).promise.then(pdf => {
         const maxBookWidth = screenWidth * 0.95;
         const maxBookHeight = screenHeight * 0.9;
 
+        const dpr = window.devicePixelRatio || 1;
+
         const scale = Math.min(
             maxBookWidth / (pageWidth * (isMobile ? 1 : 2)),
             maxBookHeight / pageHeight,
             1
-        );
+        ) * (isMobile ? 1 / dpr : 1); // Safari любит "завышать" размер на Retina
 
         const bookWidth = pageWidth * (isMobile ? 1 : 2) * scale;
         const bookHeight = pageHeight * scale;
