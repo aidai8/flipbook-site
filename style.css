@@ -1,0 +1,44 @@
+body {
+    margin: 0;
+    background: #000; /* чёрный фон для контраста */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#flipbook-container {
+    width: 1686px;
+    height: 600px;
+    background: #000;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+#flipbook {
+    width: 100%;
+    height: 100%;
+}
+
+/* Каждая страница занимает половину флипбука */
+.page-wrapper {
+    width: 843px;
+    height: 600px;
+    background: #000;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+/* Canvas точно по размеру страницы */
+.page-wrapper canvas {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain;
+    background: #000;
+    display: block;
+    border: none;
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Флипбук</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="flipbook-container">
+    <div id="flipbook"></div>
+</div>
+
+<!-- Подключение jQuery (обязательно перед Turn.js) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- PDF.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+<script>
+    // Настройка PDF.js worker
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+</script>
+
+<!-- Turn.js -->
+<script src="js/turn.min.js"></script>
+
+<!-- Твой скрипт -->
+<script src="script.js"></script>
+</body>
+</html>
